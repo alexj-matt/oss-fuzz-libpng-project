@@ -39,6 +39,7 @@ The goal was to analyze and improve existing fuzzing harnesses, increase code co
 
 ## 📂 Repository Structure
 
+```
 .
 ├── part1/ # Baseline fuzzing (with vs. without corpus)
 │ ├── run.w_corpus.sh
@@ -60,6 +61,7 @@ The goal was to analyze and improve existing fuzzing harnesses, increase code co
 ├── assignment_part2.pdf # Harness analysis
 ├── CS412_fuzzinglab_assignment.pdf # Working instructions
 └── README-original.md # Original student README with run instructions
+```
 
 ---
 
