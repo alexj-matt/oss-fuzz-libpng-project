@@ -1,0 +1,20 @@
+diff --git a/contrib/oss-fuzz/libpng_read_fuzzer.cc b/contrib/oss-fuzz/libpng_read_fuzzer.cc
+index bfb5d9d3d..1e037a900 100644
+--- a/contrib/oss-fuzz/libpng_read_fuzzer.cc
++++ b/contrib/oss-fuzz/libpng_read_fuzzer.cc
+@@ -185,6 +185,15 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
+   png_set_scale_16(png_handler.png_ptr);
+   png_set_tRNS_to_alpha(png_handler.png_ptr);
+ 
++
++
++  png_bytep trans_alpha = nullptr;
++  int num_trans = 0;
++  png_color_16p trans_color = nullptr;
++  
++  png_get_tRNS(png_handler.png_ptr, png_handler.info_ptr, &trans_alpha, &num_trans, &trans_color);
++    
++
+   int passes = png_set_interlace_handling(png_handler.png_ptr);
+ 
+   png_read_update_info(png_handler.png_ptr, png_handler.info_ptr);

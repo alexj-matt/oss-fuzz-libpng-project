@@ -1,0 +1,38 @@
+diff --git a/contrib/oss-fuzz/libpng_read_fuzzer.cc b/contrib/oss-fuzz/libpng_read_fuzzer.cc
+index bfb5d9d3d..e16ac7bac 100644
+--- a/contrib/oss-fuzz/libpng_read_fuzzer.cc
++++ b/contrib/oss-fuzz/libpng_read_fuzzer.cc
+@@ -178,6 +178,33 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
+     return 0;
+   }
+ 
++
++  if ((color_type & PNG_COLOR_MASK_COLOR) != 0) {
++    int num_palette;
++    png_colorp palette;
++
++    if (png_get_PLTE(png_handler.png_ptr, png_handler.info_ptr, &palette, &num_palette) != 0) {
++      png_uint_16p histogram = NULL;
++      
++      png_get_hIST(png_handler.png_ptr, png_handler.info_ptr, &histogram);
++
++      png_uint_16 default_hist[256];
++      if (histogram == NULL && num_palette > 0 && num_palette <= 256 && size % 2 == 0) {
++        for (int i = 0; i < num_palette; ++i) {
++          default_hist[i] = (png_uint_16)(rand() % 65536);
++        }
++        histogram = default_hist;
++      }
++
++      if (color_type == PNG_COLOR_TYPE_PALETTE) {
++        png_set_quantize(png_handler.png_ptr, palette, num_palette, 255, histogram, 0);
++      } else {
++        png_set_quantize(png_handler.png_ptr, palette, num_palette, 255, histogram, 1);
++      }
++    }
++  }
++
++
+   // Set several transforms that browsers typically use:
+   png_set_gray_to_rgb(png_handler.png_ptr);
+   png_set_expand(png_handler.png_ptr);

@@ -1,0 +1,20 @@
+diff --git a/contrib/oss-fuzz/libpng_read_fuzzer.cc b/contrib/oss-fuzz/libpng_read_fuzzer.cc
+index bfb5d9d3d..c90e44c34 100644
+--- a/contrib/oss-fuzz/libpng_read_fuzzer.cc
++++ b/contrib/oss-fuzz/libpng_read_fuzzer.cc
+@@ -108,6 +108,15 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
+     return 0;
+   }
+ 
++  // Added test for the POC
++  png_image img;
++  memset(&img, 0, sizeof(img));
++  img.version = PNG_IMAGE_VERSION;
++
++  if (png_image_begin_read_from_memory(&img, data, size)) {
++    png_image_free(&img);
++  }
++
+   PngObjectHandler png_handler;
+   png_handler.png_ptr = nullptr;
+   png_handler.row_ptr = nullptr;
