@@ -41,26 +41,38 @@ The goal was to analyze and improve existing fuzzing harnesses, increase code co
 
 ```
 .
-├── part1/ # Baseline fuzzing (with vs. without corpus)
-│ ├── run.w_corpus.sh
-│ ├── run.w_o_corpus.sh
-│ └── PART1_RESULT_*/ # Generated results: oss-fuzz logs + coverage reports
-│
-├── part3/ # Fuzzer improvements
-│ ├── improve1/
-│ │ ├── run.improve1.sh
-│ │ └── PART3_IMPROVE1/ # Results (oss-fuzz logs + coverage reports)
-│ └── improve2/
-│ ├── run.improve2.sh
-│ └── PART3_IMPROVE2/
-│
-├── part4/ # Crash reproduction
-│ ├── run.poc.sh
-│ └── PART4_POC/ # PoC + oss-fuzz crash artifacts
-│
-├── assignment_part2.pdf # Harness analysis
-├── CS412_fuzzinglab_assignment.pdf # Working instructions
-└── README-original.md # Original student README with run instructions
+├── assignment_part2.pdf         # Report for Part 2 (coverage analysis)
+├── CS412_fuzzinglab_assignment.pdf # Original assignment description
+├── README.md                    # This showcase README
+└── submission                   # Project deliverables
+    ├── part1/                   # Baseline fuzzing (with vs. without corpus)
+    │   ├── oss-fuzz.diff
+    │   ├── project.diff
+    │   ├── report/              # Coverage reports (HTML)
+    │   ├── run.w_corpus.sh
+    │   └── run.w_o_corpus.sh
+    │
+    ├── part3/                   # Fuzzer improvements
+    │   ├── coverage_noimprove/  # Coverage before improvements
+    │   ├── improve1/            # Improvement 1: png_set_quantize
+    │   │   ├── custom_seeds/    # Generated seeds for fuzzing
+    │   │   ├── histogram_adder.py
+    │   │   ├── seeds_generator.py
+    │   │   ├── oss-fuzz.diff
+    │   │   ├── project.diff
+    │   │   └── run.improve1.sh
+    │   └── improve2/            # Improvement 2: png_get_tRNS
+    │       ├── oss-fuzz.diff
+    │       ├── project.diff
+    │       └── run.improve2.sh
+    │
+    └── part4/                   # Crash reproduction
+        ├── crash/               # Crash artifacts
+        ├── custom_seed/         # Malformed PNG for PoC
+        ├── seed_generator.py
+        ├── oss-fuzz.diff
+        ├── project.diff
+        └── run.poc.sh
 ```
 
 ---
